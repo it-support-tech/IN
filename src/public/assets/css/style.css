@@ -38,6 +38,9 @@ body {
     box-shadow: 0 1px 3px rgba(0,0,0,.06);
     margin: -24px -24px 24px;
     padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 .app-header-inner {
     max-width: 900px;
@@ -215,7 +218,7 @@ table.history-table tr:hover, table.customer-table tr:hover { background: #fafaf
     margin: 0 auto;
     background: #fff;
     padding: 12mm 10mm;
-    font-size: 12px;
+    font-size: 11px;
     box-shadow: 0 1px 6px rgba(0,0,0,.2);
 }
 .invoice-page table { border-collapse: collapse; width: 100%; table-layout: fixed; }
@@ -224,7 +227,7 @@ table.history-table tr:hover, table.customer-table tr:hover { background: #fafaf
 .logo { width: 1.1in; height: 1.1in; display: block; }
 .company-cell { font-size: 12px; }
 .company-name { font-size: 15px; font-weight: 700; }
-.original-cell { width: 60px; text-align: right; font-weight: 700; font-size: 12px; }
+.original-label { text-align: right; font-weight: 400; font-size: 12px; margin-top: 2px; }
 
 .meta-table { margin-top: 14px; }
 .meta-table td { vertical-align: top; padding: 2px 4px; overflow-wrap: break-word; }
@@ -232,7 +235,11 @@ table.history-table tr:hover, table.customer-table tr:hover { background: #fafaf
 .meta-title { font-weight: 700; }
 .meta-grid td { padding: 2px 6px; overflow-wrap: break-word; }
 .meta-label { font-weight: 700; width: 58%; }
-.meta-value { font-weight: 700; text-align: right; width: 42%; }
+.meta-label-400 { font-weight: 400; width: 58%; }
+.meta-value {font-size: 10px; font-weight: 400; text-align: right; width: 42%; }
+.meta-value-700 { font-weight: 700; text-align: right; width: 42%; }
+.meta-left .meta-spaced { margin-top: 30px; }
+.meta-grid tr.meta-spaced td { padding-top: 36px; }
 
 .items-table { margin-top: 14px; }
 .items-table th, .items-table td { border: 1px solid #333; padding: 5px 6px; vertical-align: top; overflow-wrap: break-word; }
@@ -255,7 +262,7 @@ table.history-table tr:hover, table.customer-table tr:hover { background: #fafaf
 .totals-table td { padding: 3px 6px; }
 .totals-label { text-align: left; }
 .totals-currency { width: 50px; }
-.totals-value { text-align: right; font-weight: 700; }
+.totals-value { text-align: right; font-weight: 400; }
 .totals-strong td { font-weight: 700; border-top: 2px solid #333; }
 
 .signature-table { margin-top: 40px; }

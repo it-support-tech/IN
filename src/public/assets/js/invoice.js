@@ -165,6 +165,7 @@
         const payload = {
             customer_id: customerSelect.value,
             bank_account_id: form.bank_account_id.value,
+            currency: form.currency.value,
             invoice_no: form.invoice_no.value,
             po_number: form.po_number.value,
             invoice_date: form.invoice_date.value,

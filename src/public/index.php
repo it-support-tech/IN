@@ -79,7 +79,15 @@ $dueDate = $editInvoice ? $editInvoice['due_date'] : date('Y-m-d', strtotime('+3
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div></div>
+            <div>
+                <label>ສະກຸນເງິນ</label>
+                <?php $currentCurrency = $editInvoice['currency'] ?? 'USD'; ?>
+                <select id="currency" name="currency">
+                    <?php foreach (['LAK', 'USD', 'THB', 'CNY'] as $cur): ?>
+                    <option value="<?= $cur ?>" <?= $currentCurrency === $cur ? 'selected' : '' ?>><?= $cur ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
 
         <h3 style="margin-top:24px;">ລາຍການ</h3>

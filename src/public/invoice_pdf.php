@@ -36,7 +36,7 @@ $css = file_get_contents(__DIR__ . '/assets/css/style.css');
 // IS the canvas, so those must be zeroed out or the content overflows the edge.
 $pdfOverrideCss = '
     body { margin: 0; padding: 0; background: #fff; }
-    .invoice-page { box-shadow: none; margin: 0; }
+    .invoice-page { box-shadow: none; margin: 0; width: auto; min-height: auto; }
     @page { margin: 0; }
 ';
 

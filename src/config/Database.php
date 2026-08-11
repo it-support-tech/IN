@@ -11,7 +11,7 @@ final class Database
     public static function connection(): PDO
     {
         if (self::$instance === null) {
-            $host = getenv('DB_HOST') ?: 'localhost';
+            $host = getenv('DB_HOST') ?: 'db';
             $port = getenv('DB_PORT') ?: '5432';
             $name = getenv('DB_NAME') ?: 'invoices';
             $user = getenv('DB_USER') ?: 'invoice_app';
