@@ -29,8 +29,8 @@ final class Database
             $host = 'localhost';
             $port = '5432';
             $name = 'invoices';
-            $user = 'root';
-            $pass = 'Psql@postgresNTP-2025';
+            $user = 'ntp2026';
+            $pass = 'admin@123#';
 
             $dsn = "pgsql:host={$host};port={$port};dbname={$name}";
 
