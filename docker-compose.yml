@@ -31,7 +31,7 @@ services:
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
     volumes:
-      - ./src:/var/www/html
+      - ./:/var/www/html
     ports:
       - "${APP_PORT}:80"
 

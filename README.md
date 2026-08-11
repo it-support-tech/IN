@@ -20,16 +20,16 @@ two historical invoices, from `docker/postgres/init/*.sql`.
 
 ## Replace the logo
 
-`src/public/assets/logo-placeholder.svg` is a placeholder. Replace that file with the real NTP
+`public/assets/logo-placeholder.svg` is a placeholder. Replace that file with the real NTP
 logo (keep the same filename, or update the `<img src="...">` reference in
-`src/templates/invoice_template.php` and the data-URI load in `src/public/invoice_pdf.php`).
-The CSS (`.logo { width: 80px; }` in `src/public/assets/css/style.css`) controls the printed size —
+`templates/invoice_template.php` and the data-URI load in `public/invoice_pdf.php`).
+The CSS (`.logo { width: 80px; }` in `public/assets/css/style.css`) controls the printed size —
 adjust that one rule if the real logo's proportions differ.
 
 ## Lao text in the PDF
 
 The `app` image installs `fonts-noto-core` (includes Noto Sans Lao), and
-`src/public/invoice_pdf.php` registers it with dompdf as the default font — Lao script renders
+`public/invoice_pdf.php` registers it with dompdf as the default font — Lao script renders
 correctly in the downloaded PDF, not just in the browser preview. If you ever change fonts,
 keep both a `normal` and a `bold` weight registered (`Dompdf\FontMetrics::registerFont`) and
 only use `font-weight: 400` or `700` in `style.css` for anything inside `.invoice-page` —
@@ -39,7 +39,7 @@ for characters not covered by dompdf's weight-matching fallback.
 ## Structure
 
 - `docker/` — Dockerfile, entrypoint, DB init SQL
-- `src/config/Database.php` — PDO singleton
-- `src/repositories/` — CustomerRepository, InvoiceRepository (all SQL, server-side total recompute)
-- `src/templates/invoice_template.php` — single shared HTML partial used both on-screen and for PDF
-- `src/public/` — index.php (new invoice), invoice_view.php, invoice_pdf.php, history.php, customers.php, api/
+- `config/Database.php` — PDO singleton
+- `repositories/` — CustomerRepository, InvoiceRepository (all SQL, server-side total recompute)
+- `templates/invoice_template.php` — single shared HTML partial used both on-screen and for PDF
+- `public/` — index.php (new invoice), invoice_view.php, invoice_pdf.php, history.php, customers.php, api/
