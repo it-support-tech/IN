@@ -87,6 +87,7 @@
                 <select class="f-item">${optionsHtml(ITEM_OPTIONS)}</select>
                 <div class="prefix-row"><span class="prefix">SO-</span><input type="text" class="f-so" placeholder="0126080075"></div>
                 <div class="prefix-row"><span class="prefix">IN-</span><input type="text" class="f-in" placeholder="126080075"></div>
+                <div class="prefix-row"><span class="prefix">ທະບຽນ:</span><input type="text" class="f-plate" placeholder="ບກ 0000"></div>
                 <div class="prefix-row wrap">
                     <span class="prefix">ສາງ:</span>
                     <select class="f-warehouse">${optionsHtml(WAREHOUSE_OPTIONS)}</select>.
@@ -95,10 +96,10 @@
                 </div>
             </td>
             <td><input type="text" class="f-unit" value="Litter"></td>
-            <td><input type="number" class="f-qty" value="0" step="any"></td>
-            <td><input type="number" class="f-price" value="0" step="any"></td>
-            <td><input type="number" class="f-discount" value="0" step="any"></td>
-            <td><input type="number" class="f-line-total" value="0" step="any"></td>
+            <td><input type="number" class="f-qty" placeholder="0" step="any"></td>
+            <td><input type="number" class="f-price" placeholder="0" step="any"></td>
+            <td><input type="number" class="f-discount" placeholder="0" step="any"></td>
+            <td><input type="number" class="f-line-total" placeholder="0" step="any"></td>
             <td><button type="button" class="remove-row">×</button></td>
         `;
         itemsBody.appendChild(tr);
@@ -110,6 +111,7 @@
             ensureOption(tr.querySelector('.f-item'), parsed.item);
             tr.querySelector('.f-so').value = parsed.so;
             tr.querySelector('.f-in').value = parsed.inNo;
+            tr.querySelector('.f-plate').value = item.vehicle_plate || '';
             ensureOption(tr.querySelector('.f-warehouse'), parsed.warehouse);
             ensureOption(tr.querySelector('.f-productcode'), parsed.productCode);
             tr.querySelector('.f-unit').value = item.unit || '';
@@ -145,6 +147,7 @@
         itemsBody.querySelectorAll('tr').forEach(tr => {
             items.push({
                 description: buildDescription(tr),
+                vehicle_plate: tr.querySelector('.f-plate').value.trim(),
                 unit: tr.querySelector('.f-unit').value,
                 quantity: parseFloat(tr.querySelector('.f-qty').value) || 0,
                 unit_price: parseFloat(tr.querySelector('.f-price').value) || 0,

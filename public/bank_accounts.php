@@ -53,7 +53,7 @@ $accounts = $repo->all();
 <html lang="lo">
 <head>
 <meta charset="UTF-8">
-<title>ຈັດການບັນຊີທະນາຄານ</title>
+<title>ຂໍ້ມູນບັນຊີທະນາຄານ</title>
 <link rel="stylesheet" href="assets/css/style.css?v=<?= filemtime(__DIR__ . '/assets/css/style.css') ?>">
 </head>
 <body>

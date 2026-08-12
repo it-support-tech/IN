@@ -17,6 +17,30 @@ function fmt_money(float $n): string
     return number_format($n, $decimals);
 }
 
+/**
+ * Inserts the "ທະບຽນ: ..." line right after the "IN-" line in the item
+ * description, matching the order fields are entered in the form, instead of
+ * always trailing at the end (vehicle_plate is its own DB column, not part
+ * of the composed description text).
+ */
+function insert_plate_line(string $description, ?string $plate): string
+{
+    if (empty($plate)) {
+        return $description;
+    }
+
+    $lines = explode("\n", $description);
+    $plateLine = 'ທະບຽນ: ' . $plate;
+    foreach ($lines as $i => $line) {
+        if (str_starts_with($line, 'IN-')) {
+            array_splice($lines, $i + 1, 0, [$plateLine]);
+            return implode("\n", $lines);
+        }
+    }
+    $lines[] = $plateLine;
+    return implode("\n", $lines);
+}
+
 $items = $invoice['items'];
 ?>
 <div class="invoice-page">
@@ -35,14 +59,16 @@ $items = $invoice['items'];
     </table>
     <table class="meta-table">
         <tr>
-            <td class="original-label" colspan="2"><p style="margin-bottom: 10px; margin-right:  3px;">Original</p></td>
+            <td class="original-label" colspan="2">
+                <p style="margin-bottom: 10px; margin-right:  3px;">Original</p>
+            </td>
         </tr>
         <tr>
             <td class="meta-left">
                 <div class="meta-title">ລູກຄ້າ: <?= htmlspecialchars($invoice['customer_code']) ?></div>
                 <div><?= htmlspecialchars($invoice['company_name']) ?></div>
                 <div><?= htmlspecialchars($invoice['village']) ?> <?= htmlspecialchars($invoice['district']) ?> <?= htmlspecialchars($invoice['province']) ?></div>
-              
+
                 <div class="meta-spaced">ເລກທີອາກອນ: <?= htmlspecialchars($invoice['tax_id']) ?></div>
             </td>
             <td class="meta-right">
@@ -91,7 +117,7 @@ $items = $invoice['items'];
             <?php foreach ($items as $i => $item): ?>
                 <tr>
                     <td class="col-no"><?= $i + 1 ?></td>
-                    <td class="col-desc"><?= nl2br(htmlspecialchars($item['description'] ?? '')) ?></td>
+                    <td class="col-desc"><?= nl2br(htmlspecialchars(insert_plate_line($item['description'] ?? '', $item['vehicle_plate'] ?? null))) ?></td>
                     <td class="col-qty"><?= fmt_money((float) $item['quantity']) ?> <?= htmlspecialchars($item['unit'] ?? '') ?></td>
                     <td class="col-price"><?= htmlspecialchars($invoice['currency']) ?> <?= fmt_money((float) $item['unit_price']) ?></td>
                     <td class="col-discount"><?= fmt_money((float) $item['discount']) ?></td>
@@ -130,8 +156,12 @@ $items = $invoice['items'];
                         <td class="totals-currency"><?= htmlspecialchars($invoice['currency']) ?></td>
                         <td class="totals-value"><?= fmt_money((float) $invoice['total']) ?></td>
                     </tr>
-                    <tr><td></td></tr>
-                      <tr><td></td></tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
                     <tr>
                         <td class="totals-label">ຈຳນວນເງິນທີ່ຍັງຄ້າງ</td>
                         <td class="totals-currency"><?= htmlspecialchars($invoice['currency']) ?></td>

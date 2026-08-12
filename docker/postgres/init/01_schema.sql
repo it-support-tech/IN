@@ -45,6 +45,7 @@ CREATE TABLE invoice_items (
     invoice_id     INTEGER NOT NULL REFERENCES invoices(id) ON DELETE CASCADE,
     line_no        INTEGER NOT NULL,
     description    TEXT NOT NULL DEFAULT '',
+    vehicle_plate  VARCHAR(30),
     quantity       NUMERIC(14,4) NOT NULL DEFAULT 0,
     unit           VARCHAR(20),
     unit_price     NUMERIC(14,4) NOT NULL DEFAULT 0,

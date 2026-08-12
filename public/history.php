@@ -52,7 +52,6 @@ require __DIR__ . '/../templates/nav.php';
                 <td><?= htmlspecialchars($inv['currency']) ?> $<?= number_format((float) $inv['total'], 2) ?></td>
                 <td>
                     <a href="invoice_view.php?id=<?= (int) $inv['id'] ?>">ເບິ່ງ</a> |
-                    <a href="invoice_pdf.php?id=<?= (int) $inv['id'] ?>" target="_blank">PDF</a> |
                     <a href="index.php?edit=<?= (int) $inv['id'] ?>">ແກ້ໄຂ</a>
                 </td>
             </tr>

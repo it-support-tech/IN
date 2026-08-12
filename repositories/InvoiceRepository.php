@@ -46,6 +46,7 @@ final class InvoiceRepository
                 $preparedItems[] = [
                     'line_no' => $i + 1,
                     'description' => $item['description'] ?? '',
+                    'vehicle_plate' => $item['vehicle_plate'] ?? null,
                     'quantity' => (float) ($item['quantity'] ?? 0),
                     'unit' => $item['unit'] ?? null,
                     'unit_price' => (float) ($item['unit_price'] ?? 0),
@@ -79,9 +80,9 @@ final class InvoiceRepository
 
             $itemStmt = $pdo->prepare(
                 'INSERT INTO invoice_items
-                    (invoice_id, line_no, description, quantity, unit, unit_price, discount, line_total)
+                    (invoice_id, line_no, description, vehicle_plate, quantity, unit, unit_price, discount, line_total)
                  VALUES
-                    (:invoice_id, :line_no, :description, :quantity, :unit, :unit_price, :discount, :line_total)'
+                    (:invoice_id, :line_no, :description, :vehicle_plate, :quantity, :unit, :unit_price, :discount, :line_total)'
             );
             foreach ($preparedItems as $item) {
                 $itemStmt->execute(array_merge(['invoice_id' => $invoiceId], $item));
@@ -142,15 +143,16 @@ final class InvoiceRepository
 
             $itemStmt = $pdo->prepare(
                 'INSERT INTO invoice_items
-                    (invoice_id, line_no, description, quantity, unit, unit_price, discount, line_total)
+                    (invoice_id, line_no, description, vehicle_plate, quantity, unit, unit_price, discount, line_total)
                  VALUES
-                    (:invoice_id, :line_no, :description, :quantity, :unit, :unit_price, :discount, :line_total)'
+                    (:invoice_id, :line_no, :description, :vehicle_plate, :quantity, :unit, :unit_price, :discount, :line_total)'
             );
             foreach ($items as $i => $item) {
                 $itemStmt->execute([
                     'invoice_id' => $id,
                     'line_no' => $i + 1,
                     'description' => $item['description'] ?? '',
+                    'vehicle_plate' => $item['vehicle_plate'] ?? null,
                     'quantity' => (float) ($item['quantity'] ?? 0),
                     'unit' => $item['unit'] ?? null,
                     'unit_price' => (float) ($item['unit_price'] ?? 0),

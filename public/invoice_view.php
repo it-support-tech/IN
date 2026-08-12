@@ -27,8 +27,8 @@ $logoDataUri = 'assets/logo (1).png';
 <?php
 ob_start();
 ?>
-<button type="button" class="btn-outline" onclick="window.print()">ພິມ</button>
-<a href="invoice_pdf.php?id=<?= $id ?>" class="btn-solid" target="_blank">ດາວໂຫລດ PDF</a>
+<button type="button" class="btn-outline " style="background-color: blue; color: white;" onclick="window.print()">ພິມ</button>
+<!-- <a href="invoice_pdf.php?id=<?= $id ?>" class="btn-solid" target="_blank">ດາວໂຫລດ PDF</a> -->
 <?php
 $navActionsHtml = ob_get_clean();
 $activePage = 'invoice_view';

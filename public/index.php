@@ -108,10 +108,10 @@ $dueDate = $editInvoice ? $editInvoice['due_date'] : date('Y-m-d', strtotime('+3
         <button type="button" class="add-row-btn" id="add-row-btn">+ ເພີ່ມລາຍການ</button>
 
         <div class="totals-box">
-            <div class="row"><span>ມູນຄ່າລວມບໍ່ມີອາກອນ</span><input type="number" step="any" id="subtotal-input" value="<?= $editInvoice ? htmlspecialchars((string) $editInvoice['subtotal']) : '0' ?>"></div>
-            <div class="row"><span>VAT (10%)</span><input type="number" step="any" id="vat-input" value="<?= $editInvoice ? htmlspecialchars((string) $editInvoice['vat_amount']) : '0' ?>"></div>
-            <div class="row grand"><span>ທັງໝົດ</span><input type="number" step="any" id="total-input" value="<?= $editInvoice ? htmlspecialchars((string) $editInvoice['total']) : '0' ?>"></div>
-            <div class="row"><span>ຈຳນວນເງິນທີ່ຍັງຄ້າງ</span><input type="number" step="any" id="due-input" value="<?= $editInvoice ? htmlspecialchars((string) $editInvoice['amount_due']) : '0' ?>"></div>
+            <div class="row"><span>ມູນຄ່າລວມບໍ່ມີອາກອນ</span><input type="number" step="any" id="subtotal-input" placeholder="0" <?= $editInvoice ? 'value="' . htmlspecialchars((string) $editInvoice['subtotal']) . '"' : '' ?>></div>
+            <div class="row"><span>VAT (10%)</span><input type="number" step="any" id="vat-input" placeholder="0" <?= $editInvoice ? 'value="' . htmlspecialchars((string) $editInvoice['vat_amount']) . '"' : '' ?>></div>
+            <div class="row grand"><span>ທັງໝົດ</span><input type="number" step="any" id="total-input" placeholder="0" <?= $editInvoice ? 'value="' . htmlspecialchars((string) $editInvoice['total']) . '"' : '' ?>></div>
+            <div class="row"><span>ຈຳນວນເງິນທີ່ຍັງຄ້າງ</span><input type="number" step="any" id="due-input" placeholder="0" <?= $editInvoice ? 'value="' . htmlspecialchars((string) $editInvoice['amount_due']) . '"' : '' ?>></div>
         </div>
 
         <div style="margin-top:20px;">
@@ -127,6 +127,7 @@ window.EDIT_INVOICE = {
     id: <?= (int) $editInvoice['id'] ?>,
     items: <?= json_encode(array_map(fn($it) => [
         'description' => $it['description'],
+        'vehicle_plate' => $it['vehicle_plate'],
         'unit' => $it['unit'],
         'quantity' => $it['quantity'],
         'unit_price' => $it['unit_price'],
