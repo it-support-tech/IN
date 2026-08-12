@@ -63,7 +63,7 @@ $dueDate = $editInvoice ? $editInvoice['due_date'] : date('Y-m-d', strtotime('+3
             <div class="form-section-title">ຂໍ້ມູນໃບເກັບເງິນ</div>
 
             <div><label>ໃບເກັບເງິນ (ເລກທີ)</label><input type="text" name="invoice_no" id="invoice_no" value="<?= htmlspecialchars($suggestedNo) ?>" required></div>
-            <div><label>ໃບສົ່ງເລກທີ </label><input type="text" name="po_number" placeholder="PO: ...."></div>
+            <div><label>ໃບສັ່ງເລກທີ </label><input type="text" name="po_number" placeholder="PO: ...."></div>
             <div><label>ວັນທີ</label><input type="date" name="invoice_date" value="<?= $today ?>" required></div>
             <div><label>ວັນທີຄົບກຳນົດ</label><input type="date" name="due_date" value="<?= $dueDate ?>"></div>
 
