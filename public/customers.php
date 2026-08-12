@@ -48,7 +48,7 @@ $customers = $repo->all();
 <html lang="lo">
 <head>
 <meta charset="UTF-8">
-<title>ຈັດການລູກຄ້າ</title>
+<title>ຂໍ້ມູນລູກຄ້າ</title>
 <link rel="stylesheet" href="assets/css/style.css?v=<?= filemtime(__DIR__ . '/assets/css/style.css') ?>">
 </head>
 <body>

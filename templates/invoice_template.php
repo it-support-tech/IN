@@ -41,8 +41,8 @@ $items = $invoice['items'];
             <td class="meta-left">
                 <div class="meta-title">ລູກຄ້າ: <?= htmlspecialchars($invoice['customer_code']) ?></div>
                 <div><?= htmlspecialchars($invoice['company_name']) ?></div>
-                <div><?= htmlspecialchars($invoice['village']) ?> <?= htmlspecialchars($invoice['district']) ?></div>
-                <div><?= htmlspecialchars($invoice['province']) ?></div>
+                <div><?= htmlspecialchars($invoice['village']) ?> <?= htmlspecialchars($invoice['district']) ?> <?= htmlspecialchars($invoice['province']) ?></div>
+              
                 <div class="meta-spaced">ເລກທີອາກອນ: <?= htmlspecialchars($invoice['tax_id']) ?></div>
             </td>
             <td class="meta-right">

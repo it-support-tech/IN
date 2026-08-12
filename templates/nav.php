@@ -8,8 +8,8 @@
 $navItems = [
     'index' => ['index.php', 'ອອກໃບເກັບເງິນໃໝ່'],
     'history' => ['history.php', 'ປະຫວັດໃບເກັບເງິນ'],
-    'customers' => ['customers.php', 'ຈັດການລູກຄ້າ'],
-    'bank_accounts' => ['bank_accounts.php', 'ຈັດການບັນຊີທະນາຄານ'],
+    'customers' => ['customers.php', 'ຂໍ້ມູນລູກຄ້າ'],
+    'bank_accounts' => ['bank_accounts.php', 'ຂໍ້ມູນບັນຊີທະນາຄານ'],
 ];
 ?>
 <header class="app-header no-print">

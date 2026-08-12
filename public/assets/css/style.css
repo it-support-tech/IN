@@ -238,7 +238,7 @@ table.history-table tr:hover, table.customer-table tr:hover { background: #fafaf
 .meta-label-400 { font-weight: 400; width: 58%; }
 .meta-value {font-size: 10px; font-weight: 400; text-align: right; width: 42%; }
 .meta-value-700 { font-weight: 700; text-align: right; width: 42%; }
-.meta-left .meta-spaced { margin-top: 30px; }
+.meta-left .meta-spaced { margin-top: 48px; }
 .meta-grid tr.meta-spaced td { padding-top: 36px; }
 
 .items-table { margin-top: 14px; }
