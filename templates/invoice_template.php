@@ -105,11 +105,11 @@ $items = $invoice['items'];
         <tr>
             <td class="bank-info-cell">
                 <?php if (!empty($invoice['bank_account_id'])): ?>
-                    <div>Bank Name: <?= htmlspecialchars($invoice['bank_name']) ?></div><br>
-                    <div>Name: <?= htmlspecialchars($invoice['bank_account_name']) ?></div><br>
-                    <?php if (!empty($invoice['bank_account_no_lak'])): ?><div>Number: <?= htmlspecialchars($invoice['bank_account_no_lak']) ?> - LAK</div><br><?php endif; ?>
-                    <?php if (!empty($invoice['bank_account_no_usd'])): ?><div>Number: <?= htmlspecialchars($invoice['bank_account_no_usd']) ?> - USD</div><br><?php endif; ?>
-                    <?php if (!empty($invoice['bank_account_no_thb'])): ?><div>Number: <?= htmlspecialchars($invoice['bank_account_no_thb']) ?> - THB</div><br><?php endif; ?>
+                    <div>Bank Name: <?= htmlspecialchars($invoice['bank_name']) ?></div>
+                    <div>Name: <?= htmlspecialchars($invoice['bank_account_name']) ?></div>
+                    <?php if (!empty($invoice['bank_account_no_lak'])): ?><div>Number: <?= htmlspecialchars($invoice['bank_account_no_lak']) ?> - LAK</div><?php endif; ?>
+                    <?php if (!empty($invoice['bank_account_no_usd'])): ?><div>Number: <?= htmlspecialchars($invoice['bank_account_no_usd']) ?> - USD</div><?php endif; ?>
+                    <?php if (!empty($invoice['bank_account_no_thb'])): ?><div>Number: <?= htmlspecialchars($invoice['bank_account_no_thb']) ?> - THB</div><?php endif; ?>
                     <?php if (!empty($invoice['bank_swift_code'])): ?><div>Swift Code: <?= htmlspecialchars($invoice['bank_swift_code']) ?></div><?php endif; ?>
                 <?php endif; ?>
             </td>
