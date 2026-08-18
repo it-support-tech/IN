@@ -30,12 +30,13 @@
         'G95-N-0003:ແອດຊັງພິເສດ',
     ];
     const WAREHOUSE_OPTIONS = [
-        'Bolikhamxay - Fuel',
-        'Khammouane - Fuel',
-        'Luangnamtha - Fuel',
         'Savannkhet - Fuel',
-        'Sayabouly - Fuel',
+        'Khammouane - Fuel',
         'Vientiane - Fuel',
+        'Luangnamtha - Fuel',
+        'Sayabouly - Fuel',
+        'Bolikhamxay - Fuel',
+        
     ];
     const PRODUCT_CODE_OPTIONS = [
         'F-DB0 : Fuel - Diesel - Tax',
@@ -45,6 +46,55 @@
         'F-G91 : Fuel - Gasoline 91 - Tax',
         'F-G91 : Fuel - Gasoline 91 - Non-Tax',
     ];
+
+    const vatModeSelect = document.getElementById('vat-mode');
+    const subtotalInput = document.getElementById('subtotal-input');
+    const vatInput = document.getElementById('vat-input');
+    const totalInput = document.getElementById('total-input');
+    const dueInput = document.getElementById('due-input');
+    const VAT_RATE = 0.10;
+
+    // Keeps full precision (up to 8 decimal places) while clearing the
+    // binary floating-point noise JS arithmetic produces (e.g. 0.1 + 0.2),
+    // rather than truncating to 2 decimals like a display-rounding would.
+    function round8(n) {
+        return Math.round((n + Number.EPSILON) * 1e8) / 1e8;
+    }
+
+    function recalcRow(tr) {
+        const qty = parseFloat(tr.querySelector('.f-qty').value) || 0;
+        const price = parseFloat(tr.querySelector('.f-price').value) || 0;
+        const discount = parseFloat(tr.querySelector('.f-discount').value) || 0;
+        // discount is per unit (e.g. per liter), not a flat deduction off the line
+        tr.querySelector('.f-line-total').value = round8(qty * (price - discount));
+    }
+
+    function recalcTotals() {
+        const linesSum = round8(
+            Array.from(itemsBody.querySelectorAll('.f-line-total'))
+                .reduce((sum, el) => sum + (parseFloat(el.value) || 0), 0)
+        );
+
+        let subtotal, vat, total;
+        if (vatModeSelect.value === 'inclusive') {
+            // The summed line totals are treated as VAT-inclusive; back the
+            // VAT amount out of them instead of adding it on top.
+            total = linesSum;
+            subtotal = round8(total / (1 + VAT_RATE));
+            vat = round8(total - subtotal);
+        } else {
+            subtotal = linesSum;
+            vat = round8(subtotal * VAT_RATE);
+            total = round8(subtotal + vat);
+        }
+
+        subtotalInput.value = subtotal;
+        vatInput.value = vat;
+        totalInput.value = total;
+        // Defaults the amount due to the full total (typical full-payment
+        // case); staff can still overwrite it by hand for partial payments.
+        dueInput.value = total;
+    }
 
     function optionsHtml(values) {
         return values.map(v => `<option value="${v}">${v}</option>`).join('');
@@ -104,7 +154,17 @@
         `;
         itemsBody.appendChild(tr);
 
-        tr.querySelector('.remove-row').addEventListener('click', () => tr.remove());
+        tr.querySelector('.remove-row').addEventListener('click', () => {
+            tr.remove();
+            recalcTotals();
+        });
+
+        ['.f-qty', '.f-price', '.f-discount'].forEach(sel => {
+            tr.querySelector(sel).addEventListener('input', () => {
+                recalcRow(tr);
+                recalcTotals();
+            });
+        });
 
         if (item) {
             const parsed = parseDescription(item.description);
@@ -137,7 +197,8 @@
     }
 
     customerSelect.addEventListener('change', fillCustomerFields);
-    addRowBtn.addEventListener('click', makeRow);
+    addRowBtn.addEventListener('click', () => makeRow());
+    vatModeSelect.addEventListener('change', recalcTotals);
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();

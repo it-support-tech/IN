@@ -108,6 +108,13 @@ $dueDate = $editInvoice ? $editInvoice['due_date'] : date('Y-m-d', strtotime('+3
         <button type="button" class="add-row-btn" id="add-row-btn">+ ເພີ່ມລາຍການ</button>
 
         <div class="totals-box">
+            <div class="row">
+                <span>ວິທີຄິດໄລ່ VAT</span>
+                <select id="vat-mode">
+                    <option value="exclusive">ລາຄາຍັງບໍ່ລວມ VAT (ບວກ VAT ເພີ່ມ)</option>
+                    <option value="inclusive">ລາຄາລວມ VAT ແລ້ວ (ຖອດ VAT ອອກ)</option>
+                </select>
+            </div>
             <div class="row"><span>ມູນຄ່າລວມບໍ່ມີອາກອນ</span><input type="number" step="any" id="subtotal-input" placeholder="0" <?= $editInvoice ? 'value="' . htmlspecialchars((string) $editInvoice['subtotal']) . '"' : '' ?>></div>
             <div class="row"><span>VAT (10%)</span><input type="number" step="any" id="vat-input" placeholder="0" <?= $editInvoice ? 'value="' . htmlspecialchars((string) $editInvoice['vat_amount']) . '"' : '' ?>></div>
             <div class="row grand"><span>ທັງໝົດ</span><input type="number" step="any" id="total-input" placeholder="0" <?= $editInvoice ? 'value="' . htmlspecialchars((string) $editInvoice['total']) . '"' : '' ?>></div>

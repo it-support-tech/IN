@@ -32,11 +32,11 @@ CREATE TABLE invoices (
     invoice_date   DATE NOT NULL,
     due_date       DATE,
     currency       VARCHAR(10) NOT NULL DEFAULT 'USD',
-    subtotal       NUMERIC(14,4) NOT NULL DEFAULT 0,
+    subtotal       NUMERIC(18,8) NOT NULL DEFAULT 0,
     vat_rate       NUMERIC(5,2) NOT NULL DEFAULT 10,
-    vat_amount     NUMERIC(14,4) NOT NULL DEFAULT 0,
-    total          NUMERIC(14,4) NOT NULL DEFAULT 0,
-    amount_due     NUMERIC(14,4) NOT NULL DEFAULT 0,
+    vat_amount     NUMERIC(18,8) NOT NULL DEFAULT 0,
+    total          NUMERIC(18,8) NOT NULL DEFAULT 0,
+    amount_due     NUMERIC(18,8) NOT NULL DEFAULT 0,
     created_at     TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -46,11 +46,11 @@ CREATE TABLE invoice_items (
     line_no        INTEGER NOT NULL,
     description    TEXT NOT NULL DEFAULT '',
     vehicle_plate  VARCHAR(30),
-    quantity       NUMERIC(14,4) NOT NULL DEFAULT 0,
+    quantity       NUMERIC(18,8) NOT NULL DEFAULT 0,
     unit           VARCHAR(20),
-    unit_price     NUMERIC(14,4) NOT NULL DEFAULT 0,
-    discount       NUMERIC(14,4) NOT NULL DEFAULT 0,
-    line_total     NUMERIC(14,4) NOT NULL DEFAULT 0
+    unit_price     NUMERIC(18,8) NOT NULL DEFAULT 0,
+    discount       NUMERIC(18,8) NOT NULL DEFAULT 0,
+    line_total     NUMERIC(18,8) NOT NULL DEFAULT 0
 );
 
 CREATE INDEX idx_invoices_customer_id ON invoices(customer_id);

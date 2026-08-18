@@ -8,12 +8,20 @@
  */
 
 /**
- * Shows however many decimal places the staff actually typed: 2 if the value
- * has no meaningful digits past the hundredths place, otherwise 4.
+ * Shows however many decimal places the staff actually typed/calculated:
+ * always at least 2, but extends up to 8 if the value carries real precision
+ * past that (e.g. quantities or unit prices entered with more decimals).
  */
 function fmt_money(float $n): string
 {
-    $decimals = (abs($n - round($n, 2)) < 0.00001) ? 2 : 4;
+    $decimals = 2;
+    for ($d = 2; $d <= 8; $d++) {
+        if (abs($n - round($n, $d)) < 0.000000005) {
+            $decimals = $d;
+            break;
+        }
+        $decimals = 8;
+    }
     return number_format($n, $decimals);
 }
 

@@ -49,7 +49,7 @@ require __DIR__ . '/../templates/nav.php';
                 <td><?= htmlspecialchars($inv['invoice_no']) ?></td>
                 <td><?= htmlspecialchars($inv['customer_code']) ?> - <?= htmlspecialchars($inv['company_name']) ?></td>
                 <td><?= htmlspecialchars(date('d/m/Y', strtotime($inv['invoice_date']))) ?></td>
-                <td><?= htmlspecialchars($inv['currency']) ?> $<?= number_format((float) $inv['total'], 2) ?></td>
+                <td><?= htmlspecialchars($inv['currency']) ?> <?= number_format((float) $inv['total'], 2) ?></td>
                 <td>
                     <a href="invoice_view.php?id=<?= (int) $inv['id'] ?>">ເບິ່ງ</a> |
                     <a href="index.php?edit=<?= (int) $inv['id'] ?>">ແກ້ໄຂ</a>

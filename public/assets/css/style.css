@@ -195,6 +195,7 @@ table.line-items .desc-cell .prefix-row input, table.line-items .desc-cell .pref
 }
 .totals-box .row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 14px; gap: 10px; }
 .totals-box .row input { width: 140px; text-align: right; padding: 5px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+.totals-box .row select { width: 240px; padding: 5px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; }
 .totals-box .row.grand { font-weight: 700; border-top: 2px solid #111; padding-top: 8px; }
 
 .btn { background: #1d4ed8; color: #fff; border: none; padding: 9px 18px; border-radius: 4px; font-size: 14px; cursor: pointer; }
