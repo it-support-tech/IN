@@ -14,7 +14,8 @@ $navItems = [
 ?>
 <header class="app-header no-print">
     <div class="app-header-inner">
-        <div class="brand"><span class="brand-mark">N</span>NTP Invoice</div>
+        <img style="height: 40px; width: 40px;" src="assets/logo (1).png" alt="Logo">
+        <div class="brand">NTP Trading Petroleum</div>
         <nav class="nav-links">
             <?php foreach ($navItems as $key => [$href, $label]): ?>
             <a href="<?= $href ?>" class="nav-link<?= ($activePage ?? '') === $key ? ' active' : '' ?>"><?= $label ?></a>
