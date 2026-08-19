@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         unzip \
         git \
         fonts-noto-core \
+        fonts-noto-cjk \
         fontconfig \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_pgsql pgsql gd \

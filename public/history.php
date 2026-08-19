@@ -20,7 +20,7 @@ $invoices = (new InvoiceRepository())->listHistory($search ?: null);
 ob_start();
 ?>
 <form method="get" style="display:flex;">
-    <input type="text" name="q" placeholder="ຄົ້ນຫາ ເລກທີ/ລູກຄ້າ" value="<?= htmlspecialchars($search) ?>">
+    <input style="color:black;" type="text" name="q" placeholder="ຄົ້ນຫາ ເລກທີ/ລູກຄ້າ" value="<?= htmlspecialchars($search) ?>">
 </form>
 <?php
 $navActionsHtml = ob_get_clean();

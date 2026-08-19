@@ -27,7 +27,8 @@ $logoDataUri = 'assets/logo (1).png';
 <?php
 ob_start();
 ?>
-<button type="button" class="btn-outline " style="background-color: blue; color: white;" onclick="window.print()">ພິມ</button>
+<a href="index.php" class="btn-solid" style="margin-left:auto;">+ ອອກໃບເກັບເງິນໃໝ່</a>
+<button style="width:5rem;" type="button" class="btn-outline" onclick="window.print()">ພິມ</button>
 <!-- <a href="invoice_pdf.php?id=<?= $id ?>" class="btn-solid" target="_blank">ດາວໂຫລດ PDF</a> -->
 <?php
 $navActionsHtml = ob_get_clean();
@@ -35,7 +36,15 @@ $activePage = 'invoice_view';
 require __DIR__ . '/../templates/nav.php';
 ?>
 
-<?php require __DIR__ . '/../templates/invoice_template.php'; ?>
+<?php
+$copyLabel = 'Original';
+require __DIR__ . '/../templates/invoice_template.php';
+?>
+<div class="invoice-page-break"></div>
+<?php
+$copyLabel = 'Copy';
+require __DIR__ . '/../templates/invoice_template.php';
+?>
 
 </body>
 </html>

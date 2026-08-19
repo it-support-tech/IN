@@ -5,13 +5,20 @@
  * (invoice_view.php) and for PDF generation (invoice_pdf.php via dompdf).
  * Expects $invoice (with 'items') from InvoiceRepository::findWithDetails().
  * Expects $logoDataUri (absolute/data URI usable by both browser and dompdf).
+ * Expects $copyLabel ('Original' or 'Copy') - the including page renders this
+ * template twice (once per label) so printing an invoice always yields both
+ * an Original and a Copy page.
  */
 
 /**
  * Shows however many decimal places the staff actually typed/calculated:
  * always at least 2, but extends up to 8 if the value carries real precision
  * past that (e.g. quantities or unit prices entered with more decimals).
+ *
+ * Guarded with function_exists() because the including page now requires
+ * this template twice (Original + Copy pages) in the same request.
  */
+if (!function_exists('fmt_money')) {
 function fmt_money(float $n): string
 {
     $decimals = 2;
@@ -24,6 +31,7 @@ function fmt_money(float $n): string
     }
     return number_format($n, $decimals);
 }
+}
 
 /**
  * Inserts the "ທະບຽນ: ..." line right after the "IN-" line in the item
@@ -31,6 +39,7 @@ function fmt_money(float $n): string
  * always trailing at the end (vehicle_plate is its own DB column, not part
  * of the composed description text).
  */
+if (!function_exists('insert_plate_line')) {
 function insert_plate_line(string $description, ?string $plate): string
 {
     if (empty($plate)) {
@@ -47,6 +56,7 @@ function insert_plate_line(string $description, ?string $plate): string
     }
     $lines[] = $plateLine;
     return implode("\n", $lines);
+}
 }
 
 $items = $invoice['items'];
@@ -68,7 +78,7 @@ $items = $invoice['items'];
     <table class="meta-table">
         <tr>
             <td class="original-label" colspan="2">
-                <p style="margin-bottom: 10px; margin-right:  3px;">Original</p>
+                <p style="margin-bottom: 10px; margin-right:  3px;"><?= htmlspecialchars($copyLabel ?? 'Original') ?></p>
             </td>
         </tr>
         <tr>

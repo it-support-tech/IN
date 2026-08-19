@@ -6,18 +6,18 @@ error_reporting(E_ALL & ~E_DEPRECATED);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/Database.php';
-require_once __DIR__ . '/../repositories/InvoiceRepository.php';
+require_once __DIR__ . '/../repositories/PriceQuoteRepository.php';
 
-use App\Repositories\InvoiceRepository;
+use App\Repositories\PriceQuoteRepository;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
 $id = (int) ($_GET['id'] ?? 0);
-$invoice = (new InvoiceRepository())->findWithDetails($id);
+$quote = (new PriceQuoteRepository())->findWithDetails($id);
 
-if (!$invoice) {
+if (!$quote) {
     http_response_code(404);
-    echo 'ບໍ່ພົບໃບເກັບເງິນ';
+    echo 'ບໍ່ພົບໃບລາຄາສະເລ່ຍ';
     exit;
 }
 
@@ -31,9 +31,6 @@ if (is_file($logoFile)) {
 
 $css = file_get_contents(__DIR__ . '/assets/css/style.css');
 
-// PDF-only overrides: the on-screen stylesheet centers the invoice page with
-// a body margin/box-shadow for the browser view; for the PDF the page itself
-// IS the canvas, so those must be zeroed out or the content overflows the edge.
 $pdfOverrideCss = '
     body { margin: 0; padding: 0; background: #fff; }
     .invoice-page { box-shadow: none; margin: 0; width: auto; min-height: auto; }
@@ -41,11 +38,7 @@ $pdfOverrideCss = '
 ';
 
 ob_start();
-$copyLabel = 'Original';
-require __DIR__ . '/../templates/invoice_template.php';
-echo '<div class="invoice-page-break"></div>';
-$copyLabel = 'Copy';
-require __DIR__ . '/../templates/invoice_template.php';
+require __DIR__ . '/../templates/price_quote_template.php';
 $bodyHtml = ob_get_clean();
 
 $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><style>' . $css . $pdfOverrideCss . '</style></head><body>' . $bodyHtml . '</body></html>';
@@ -71,10 +64,6 @@ $dompdf->getFontMetrics()->registerFont(
     ['family' => 'Noto Sans Lao', 'style' => 'normal', 'weight' => 'bold'],
     '/usr/share/fonts/truetype/noto/NotoSansLao-Bold.ttf'
 );
-// Noto Sans Lao has no Latin/digit glyphs at all (Noto splits fonts per
-// script); dompdf falls through to the next family in the CSS stack for
-// glyphs the current font can't render, so English text/numbers use Noto
-// Sans - the Latin member of the same Noto type family, for a unified look.
 $dompdf->getFontMetrics()->registerFont(
     ['family' => 'Noto Sans', 'style' => 'normal', 'weight' => 'normal'],
     '/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf'
@@ -87,5 +76,5 @@ $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 
-$filename = $invoice['invoice_no'] . '.pdf';
+$filename = $quote['doc_no'] . '.pdf';
 $dompdf->stream($filename, ['Attachment' => false]);

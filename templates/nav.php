@@ -1,28 +1,56 @@
 <?php
 /**
- * Shared top navigation, included by every public page.
- * Expects (set by the including page before requiring this file):
- *   $activePage    - one of: index, history, customers, bank_accounts
- *   $navActionsHtml - optional pre-rendered HTML (buttons/search) for the right side
+ * Shared sidebar navigation, included by every public page right after
+ * <body>. Expects (set by the including page before requiring this file):
+ *   $activePage    - one of the keys inside $navGroups below (also used to
+ *                    look up the topbar's default title when no
+ *                    $navActionsHtml is supplied)
+ *   $navActionsHtml - optional pre-rendered HTML (buttons/search) shown in
+ *                     the topbar; falls back to the page title below
  */
-$navItems = [
-    'index' => ['index.php', 'ອອກໃບເກັບເງິນໃໝ່'],
-    'history' => ['history.php', 'ປະຫວັດໃບເກັບເງິນ'],
-    'customers' => ['customers.php', 'ຂໍ້ມູນລູກຄ້າ'],
-    'bank_accounts' => ['bank_accounts.php', 'ຂໍ້ມູນບັນຊີທະນາຄານ'],
+$navGroups = [
+    'ໃບເກັບເງິນ' => [
+        'index' => ['index.php', 'ອອກໃບເກັບເງິນໃໝ່', '🧾'],
+        'history' => ['history.php', 'ປະຫວັດໃບເກັບເງິນ', '🕘'],
+    ],
+    'ລາຄາສະເລ່ຍ' => [
+        'price_quote' => ['price_quote.php', 'ອອກໃບລາຄາສະເລ່ຍ', '📄'],
+        'price_quote_history' => ['price_quote_history.php', 'ປະຫວັດລາຄາສະເລ່ຍ', '🕘'],
+    ],
+    'ຂໍ້ມູນທົ່ວໄປ' => [
+        'customers' => ['customers.php', 'ຂໍ້ມູນລູກຄ້າ', '👤'],
+        'bank_accounts' => ['bank_accounts.php', 'ຂໍ້ມູນບັນຊີທະນາຄານ', '🏦'],
+    ],
 ];
+
+$topbarTitle = '';
+foreach ($navGroups as $items) {
+    if (isset($items[$activePage ?? ''])) {
+        $topbarTitle = $items[$activePage][1];
+        break;
+    }
+}
 ?>
-<header class="app-header no-print">
-    <div class="app-header-inner">
-        <img style="height: 40px; width: 40px;" src="assets/logo (1).png" alt="Logo">
-        <div class="brand">NTP Trading Petroleum</div>
-        <nav class="nav-links">
-            <?php foreach ($navItems as $key => [$href, $label]): ?>
-            <a href="<?= $href ?>" class="nav-link<?= ($activePage ?? '') === $key ? ' active' : '' ?>"><?= $label ?></a>
-            <?php endforeach; ?>
-        </nav>
-        <?php if (!empty($navActionsHtml)): ?>
-        <div class="nav-actions"><?= $navActionsHtml ?></div>
-        <?php endif; ?>
+<aside class="app-sidebar no-print">
+    <div class="sidebar-brand">
+        <img src="assets/logo (1).png" alt="Logo" class="sidebar-logo">
+        <div class="sidebar-brand-text">NTP Trading<br>Petroleum</div>
     </div>
-</header>
+    <nav class="sidebar-nav">
+        <?php foreach ($navGroups as $groupLabel => $items): ?>
+        <div class="sidebar-group-label"><?= $groupLabel ?></div>
+        <?php foreach ($items as $key => [$href, $label, $icon]): ?>
+        <a href="<?= $href ?>" class="sidebar-link<?= ($activePage ?? '') === $key ? ' active' : '' ?>">
+            <span class="sidebar-icon"><?= $icon ?></span><span class="sidebar-label"><?= $label ?></span>
+        </a>
+        <?php endforeach; ?>
+        <?php endforeach; ?>
+    </nav>
+</aside>
+<div class="app-topbar no-print">
+    <?php if (!empty($navActionsHtml)): ?>
+        <?= $navActionsHtml ?>
+    <?php elseif ($topbarTitle !== ''): ?>
+        <span class="app-topbar-title"><?= htmlspecialchars($topbarTitle) ?></span>
+    <?php endif; ?>
+</div>
