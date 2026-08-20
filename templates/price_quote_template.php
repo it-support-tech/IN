@@ -68,10 +68,6 @@ $items = $quote['items'];
                         <td class="meta-label-400">ວັນທີ:</td>
                         <td class="meta-value"><?= htmlspecialchars(date('d/m/Y', strtotime($quote['doc_date']))) ?></td>
                     </tr>
-                    <tr>
-                        <td class="meta-label-400">ອັດຕາແລກປ່ຽນ:</td>
-                        <td class="meta-value"><?= htmlspecialchars($quote['rate_currency']) ?> <?= fmt_qty((float) (!empty($items) ? $items[0]['exchange_rate'] : 0), 0) ?></td>
-                    </tr>
                 </table>
             </td>
         </tr>
@@ -85,6 +81,7 @@ $items = $quote['items'];
                 <th>ລາຄາໂຄງສ້າງລັດທະບານ<br><?= header_subtitle($hl, '政府指导价', 'Structure Price') ?></th>
                 <th>ສ່ວນຫຼຸດ<br><?= header_subtitle($hl, '优惠', 'Discount') ?></th>
                 <th>ລາຄາຫຼັງຫຼຸດ<br><?= header_subtitle($hl, '后优惠价格', 'Price After Discount') ?></th>
+                <th>ອັດຕາແລກປ່ຽນ<br><?= header_subtitle($hl, '汇率', 'Exchange Rate') ?></th>
                 <th>ລາຄາ<br><?= header_subtitle($hl, '美金', 'Price') ?></th>
                 <th>ຈຳນວນເງິນທັງໝົດ<br><?= header_subtitle($hl, '总价格', 'Total Amount') ?></th>
             </tr>
@@ -96,6 +93,7 @@ $items = $quote['items'];
                     <td><?= fmt_qty((float) $item['structure_price'], 0) ?></td>
                     <td><?= fmt_qty((float) $item['discount'], 0) ?></td>
                     <td><?= fmt_qty((float) $item['price_after_discount'], 0) ?></td>
+                    <td class="quote-total-cell"><span><?= fmt_qty((float) $item['exchange_rate'], 0) ?></span></td>
                     <td class="quote-total-cell"><span><?= htmlspecialchars($quote['rate_currency']) ?></span><span><?= fmt_qty((float) $item['usd_price'], 4) ?></span></td>
                     <td class="quote-total-cell"><span>LAK</span><span><?= fmt_qty((float) $item['total_amount'], 0) ?></span></td>
                 </tr>
@@ -103,17 +101,17 @@ $items = $quote['items'];
         </tbody>
         <tfoot>
             <tr class="quote-total-row">
-                <td colspan="5" class="quote-total-label"></td>
+                <td colspan="6" class="quote-total-label"></td>
                 <td class="quote-total-cell"><span><?= htmlspecialchars($quote['rate_currency']) ?></span><span><?= fmt_qty((float) $quote['total_usd'], 2) ?></span></td>
             </tr>
         </tfoot>
     </table>
 
     <?php if (!empty($quote['remark'])): ?>
-        <div style="margin-top:10px;"><strong>ໝາຍເຫດ:</strong> <?= nl2br(htmlspecialchars($quote['remark'])) ?></div>
+        <div class="quote-remark"><strong>ໝາຍເຫດ:</strong> <?= nl2br(htmlspecialchars($quote['remark'])) ?></div>
     <?php endif; ?>
 
-    <table class="signature-table">
+    <table class="signature-table quote-signature-table">
         <tr>
             <td></td>
             <td><span class="signature-name">ຜູ້ສະຫຼຸບ</span></td>
